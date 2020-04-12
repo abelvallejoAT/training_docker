@@ -1,0 +1,1 @@
+docker build -f "C:\Users\abel.vallejo\source\repos\dockertraining_Abel_Vallejo\dockertraining_Abel_Vallejo\Dockerfile" --force-rm -t dockertrainingabelvallejo  "C:\Users\abel.vallejo\source\repos\dockertraining_Abel_Vallejo" 
