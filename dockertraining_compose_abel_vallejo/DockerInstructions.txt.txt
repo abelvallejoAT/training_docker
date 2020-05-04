@@ -1,0 +1,11 @@
+Create new Image
+docker build -f "C:\Users\abel.vallejo\source\repos\dockertraining_compose_abel_vallejo\dockertraining_compose_abel_vallejo\Dockerfile" --force-rm -t dockertraining_compose_abel_vallejo_img "C:\Users\abel.vallejo\source\repos\dockertraining_compose_abel_vallejo"
+
+Create new Volume
+docker volume create compose_assessment
+
+Create the DB Image
+docker run --name database_container -e MYSQL_DATABASE=fooddb -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=test -e MYSQL_PASSWORD=123456 -v compose_assessment:/var/lib/mysql -p 3318:3306 -d mysql
+
+Create the API Image
+docker run --name api_container -p 8091:80 -e "ConnectionStrings:FoodDB"="Server=database_container;Port=3306;Database=fooddb; Uid=test; Pwd=123456" --link database_container -it dockertraining_compose_abel_vallejo_img

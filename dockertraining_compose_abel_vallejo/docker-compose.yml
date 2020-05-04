@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  dockertraining_compose_abel_vallejo:
+    image: ${DOCKER_REGISTRY-}dockertrainingcomposeabelvallejo
+    build:
+      context: .
+      dockerfile: dockertraining_compose_abel_vallejo/Dockerfile
+    ports:
+    - "8091:80"
+    environments: 
+      "ConnectionStrings:FoodDB": "Server=mydb;Port=3306;Database=fooddb; Uid=test; Pwd=123456"
+    links:
+    - mydb
+  mydb:
+    image:mysql
+    environments:
+      MYSQL_DATABASE:"fooddb"
+      MYSQL_USER:"test"
+      MYSQL_PASSWORD:"123456"
+      MYSQL_RANDOM_ROOT_PASSWORD:"yes"
+    ports:
+    - "3318":"3306"
+    volumes:
+      -mydbvol:"/var/lib/mysql"
+volumes:
+    mydbvol:
